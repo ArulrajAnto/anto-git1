@@ -1,0 +1,29 @@
+- hosts: client
+  vars:
+    http_port: 80
+    max_clients: 200
+  remote_user: root
+  tasks:
+  - name: ensure apache is at the latest version
+    yum:
+        pkg: httpd
+        state: latest
+  - name: install wget
+    yum:
+        pkg: wget
+        state: latest
+  - name: 'download and install  epel'
+    shell: 'wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm; rpm -ivh epel-release-latest-7.noarch.rpm' 
+  - name: install git
+    yum:
+        pkg: git
+        state: latest
+  - name: write the apache config file
+    tasks:
+    shell: 'echo "Hi, This is Arulraj Anto, test page 2 and 3 will be coming" > /var/www/html/index.html'
+
+  - name: restart apache
+    service:
+        name: httpd
+        state: started
+        enabled: yes

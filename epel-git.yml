@@ -1,0 +1,15 @@
+-
+    hosts: client1
+    vars:
+        remote_user: root
+    tasks:
+        -
+            name: 'install wget'
+            yum: {pkg: wget, state: latest}
+        -
+            name: 'install epel'
+            tasks: null
+            shell: 'wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm'
+        -
+            name: 'install git'
+            yum: {pkg: git, state: latest}
